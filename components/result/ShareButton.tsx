@@ -1,16 +1,24 @@
 "use client";
 
+import type { QuizResult } from "@/types/quiz";
+
 interface ShareButtonProps {
   mochiName: string;
   motto: string;
+  result: QuizResult;
 }
 
 export function ShareButton({
   mochiName,
   motto,
+  result,
 }: ShareButtonProps) {
   async function handleShare() {
-    const url = window.location.href;
+    const encodedResult = btoa(JSON.stringify(result))
+      .replace(/\\+/g, "-")
+      .replace(/\\//g, "_")
+      .replace(/=+$/, "");
+    const url = `${window.location.origin}/result/${result.primaryMochiId}?shared=${encodedResult}`;
     const text = `Я — ${mochiName}! ${motto}\nА какой ты моти?`;
 
     if (navigator.share) {
@@ -25,7 +33,6 @@ export function ShareButton({
           console.error("Не удалось поделиться:", error);
         }
       }
-
       return;
     }
 
