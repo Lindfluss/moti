@@ -118,9 +118,9 @@ export default function Home() {
                   <p className="mt-1 text-xs font-semibold text-lavender-accent sm:text-sm">
                     {mochi.archetype}
                   </p>
-                  <p className="mt-3 line-clamp-3 text-xs leading-5 text-plum-soft sm:text-sm sm:leading-6">
+                  {/* <p className="mt-3 text-xs leading-5 text-plum-soft sm:text-sm sm:leading-6">
                     {mochi.description}
-                  </p>
+                  </p> */}
                 </div>
               </article>
             ))}
