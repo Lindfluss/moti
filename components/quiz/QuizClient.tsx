@@ -81,15 +81,15 @@ export function QuizClient() {
             </Link>
           </div>
           <div className="text-center">
-          <div className="mb-2 text-3xl sm:mb-3 sm:text-4xl" aria-hidden="true">
-            🍡
-          </div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-plum-soft sm:text-sm sm:tracking-[0.2em]">
-            Какой ты моти?
-          </p>
-          <h1 className="mt-2 text-2xl font-bold text-plum sm:mt-3 sm:text-3xl">
-            Давай узнаем!
-          </h1>
+            <div className="mb-2 text-3xl sm:mb-3 sm:text-4xl" aria-hidden="true">
+              🍡
+            </div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-plum-soft sm:text-sm sm:tracking-[0.2em]">
+              Какой ты моти?
+            </p>
+            <h1 className="mt-2 text-2xl font-bold text-plum sm:mt-3 sm:text-3xl">
+              Давай узнаем!
+            </h1>
           </div>
         </header>
 
