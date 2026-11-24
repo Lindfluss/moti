@@ -58,12 +58,7 @@ export function QuizClient() {
     try {
       const result = calculateQuizResult(answers);
 
-      // Сохраняем результат, чтобы использовать его на странице моти.
-      sessionStorage.setItem(
-        "mochi-quiz-result",
-        JSON.stringify(result),
-      );
-
+      sessionStorage.setItem("mochi-quiz-result", JSON.stringify(result));
       router.push(`/result/${result.primaryMochiId}`);
     } catch (error) {
       console.error("Не удалось рассчитать результат:", error);
@@ -72,26 +67,23 @@ export function QuizClient() {
   }
 
   return (
-    <main className="min-h-screen bg-[#F9E8EF] px-4 py-8 sm:px-6 sm:py-12">
-      <div className="mx-auto flex min-h-[80vh] max-w-2xl flex-col">
-        <header className="mb-10 text-center">
-          <div className="mb-3 text-4xl">🍡</div>
-
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#9B83A5]">
+    <main className="min-h-svh bg-mochi-pink px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5 text-plum sm:px-6 sm:py-10">
+      <div className="mx-auto flex min-h-[calc(100svh-2.5rem-env(safe-area-inset-bottom))] w-full max-w-2xl flex-col sm:min-h-[80svh]">
+        <header className="mb-7 text-center sm:mb-10">
+          <div className="mb-2 text-3xl sm:mb-3 sm:text-4xl" aria-hidden="true">
+            🍡
+          </div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-plum-soft sm:text-sm sm:tracking-[0.2em]">
             Какой ты моти?
           </p>
-
-          <h1 className="mt-3 text-2xl font-bold text-[#51405E] sm:text-3xl">
+          <h1 className="mt-2 text-2xl font-bold text-plum sm:mt-3 sm:text-3xl">
             Давай узнаем!
           </h1>
         </header>
 
-        <QuizProgress
-          current={currentIndex + 1}
-          total={questions.length}
-        />
+        <QuizProgress current={currentIndex + 1} total={questions.length} />
 
-        <div className="my-auto py-10">
+        <div className="flex flex-1 flex-col justify-center py-7 sm:py-10">
           <AnimatePresence mode="wait">
             <motion.section
               key={currentQuestion.id}
@@ -100,16 +92,16 @@ export function QuizClient() {
               exit={{ opacity: 0, y: -14 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="mb-6">
-                <span className="mb-3 inline-block rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#9B83A5]">
+              <div className="mb-5 sm:mb-6">
+                <span className="mb-3 inline-flex min-h-8 items-center rounded-full bg-card px-4 py-2 text-[11px] font-bold tracking-wide text-plum-soft sm:text-xs">
                   ВОПРОС {currentIndex + 1}
                 </span>
 
-                <h2 className="text-2xl font-bold leading-snug text-[#51405E] sm:text-3xl">
+                <h2 className="text-[1.4rem] font-bold leading-snug text-plum sm:text-3xl">
                   {currentQuestion.prompt}
                 </h2>
 
-                <p className="mt-3 text-sm text-[#8B7A91]">
+                <p className="mt-3 text-sm leading-6 text-plum-muted">
                   Выбери вариант, который больше всего похож на тебя
                 </p>
               </div>
@@ -129,33 +121,35 @@ export function QuizClient() {
           </AnimatePresence>
         </div>
 
-        <footer className="mt-auto flex items-center justify-between gap-4">
-          <button
-            type="button"
-            onClick={goBack}
-            disabled={currentIndex === 0 || isFinishing}
-            className="rounded-xl px-5 py-3 text-sm font-semibold text-[#786783] transition hover:bg-white/60 disabled:cursor-not-allowed disabled:opacity-30"
-          >
-            ← Назад
-          </button>
+        <footer className="mt-auto border-t border-lavender-border/50 pt-4 sm:border-0 sm:pt-0">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={goBack}
+              disabled={currentIndex === 0 || isFinishing}
+              className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full px-4 text-sm font-semibold text-plum-soft transition hover:bg-card/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum disabled:cursor-not-allowed disabled:opacity-30 sm:px-5"
+            >
+              ← Назад
+            </button>
 
-          <button
-            type="button"
-            onClick={goNext}
-            disabled={!selectedAnswer || isFinishing}
-            className="rounded-xl bg-[#51405E] px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#51405E]/15 transition hover:bg-[#675477] disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            {isFinishing
-              ? "Считаем..."
-              : isLastQuestion
-                ? "Узнать своего моти 🍡"
-                : "Дальше →"}
-          </button>
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={!selectedAnswer || isFinishing}
+              className="inline-flex min-h-12 flex-1 items-center justify-center rounded-full bg-plum px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-plum/15 transition hover:bg-plum-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none sm:px-7"
+            >
+              {isFinishing
+                ? "Считаем..."
+                : isLastQuestion
+                  ? "Узнать своего моти 🍡"
+                  : "Дальше →"}
+            </button>
+          </div>
+
+          <p className="mt-4 text-center text-xs text-plum-faint">
+            Не думай слишком долго — выбирай сердцем 💗
+          </p>
         </footer>
-
-        <p className="mt-6 text-center text-xs text-[#A28FA5]">
-          Не думай слишком долго — выбирай сердцем 💗
-        </p>
       </div>
     </main>
   );
