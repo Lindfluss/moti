@@ -85,12 +85,12 @@ export function PersonalityStats({
                 />
 
                 <div
-                  className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-[#51405E] shadow"
+                  className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-plum shadow"
                   style={{ left: `${position}%` }}
                 />
               </div>
 
-              <div className="mt-2 flex justify-between text-[11px] text-[#A495A7]">
+              <div className="mt-2 flex justify-between text-[11px] text-plum-tertiary">
                 <span>{trait.left}</span>
                 <span>{trait.right}</span>
               </div>
