@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { mochiProfiles } from "@/data/mochi";
+import { MochiGallery } from "@/components/home/MochiGallery";
 
 export default function Home() {
   return (
@@ -96,35 +96,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-10 grid grid-cols-2 gap-4 sm:mt-14 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
-            {mochiProfiles.map((mochi) => (
-              <article
-                key={mochi.id}
-                className="group overflow-hidden rounded-3xl border border-lavender-border/50 bg-card shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-plum/5"
-              >
-                <div className="relative aspect-square overflow-hidden bg-lavender/30">
-                  <Image
-                    src={mochi.image}
-                    alt={mochi.name}
-                    fill
-                    sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 240px"
-                    className="object-cover transition duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-4 sm:p-5">
-                  <h3 className="text-sm font-extrabold text-plum sm:text-base">
-                    {mochi.name}
-                  </h3>
-                  <p className="mt-1 text-xs font-semibold text-lavender-accent sm:text-sm">
-                    {mochi.archetype}
-                  </p>
-                  {/* <p className="mt-3 text-xs leading-5 text-plum-soft sm:text-sm sm:leading-6">
-                    {mochi.description}
-                  </p> */}
-                </div>
-              </article>
-            ))}
-          </div>
+          <MochiGallery />
 
           <div className="mt-12 text-center sm:mt-16">
             <p className="mb-5 text-sm text-plum-soft">
