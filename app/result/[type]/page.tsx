@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useSyncExternalStore } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import { getMochiById } from "@/data/mochi";
@@ -10,6 +10,33 @@ import { PersonalityStats } from "@/components/result/PersonalityStats";
 import type { QuizResult, TraitScores } from "@/types/quiz";
 
 const RESULT_STORAGE_KEY = "mochi-quiz-result";
+
+function subscribeToResult(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener("popstate", callback);
+
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener("popstate", callback);
+  };
+}
+
+function getResultSnapshot(): string {
+  try {
+    const sharedData = new URLSearchParams(window.location.search).get("shared");
+
+    if (sharedData) {
+      const base64 = sharedData.replace(/-/g, "+").replace(/_/g, "/");
+      const binary = atob(base64);
+      const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+      return new TextDecoder().decode(bytes);
+    }
+
+    return sessionStorage.getItem(RESULT_STORAGE_KEY) ?? "";
+  } catch {
+    return "";
+  }
+}
 
 function isValidScores(value: unknown): value is TraitScores {
   if (!value || typeof value !== "object") return false;
@@ -54,50 +81,38 @@ function ResultPageContent() {
   const router = useRouter();
   const mochiId = params.type;
 
-  const [result, setResult] = useState<QuizResult | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const resultData = useSyncExternalStore(
+    subscribeToResult,
+    getResultSnapshot,
+    () => null,
+  );
 
-  useEffect(() => {
+  let result: QuizResult | null = null;
+
+  if (resultData) {
     try {
-      const sharedData = new URLSearchParams(window.location.search).get("shared");
-      let parsedResult: unknown;
-
-      if (sharedData) {
-        const base64 = sharedData.replace(/-/g, "+").replace(/_/g, "/");
-        const binary = atob(base64);
-        const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
-        parsedResult = JSON.parse(new TextDecoder().decode(bytes));
-      } else {
-        const storedResult = sessionStorage.getItem(RESULT_STORAGE_KEY);
-
-        if (!storedResult) {
-          router.replace("/quiz");
-          return;
-        }
-
-        parsedResult = JSON.parse(storedResult);
-      }
+      const parsedResult: unknown = JSON.parse(resultData);
 
       if (
-        !isValidResult(parsedResult) ||
-        parsedResult.primaryMochiId !== mochiId ||
-        !getMochiById(parsedResult.primaryMochiId) ||
-        !getMochiById(parsedResult.secondaryMochiId)
+        isValidResult(parsedResult) &&
+        parsedResult.primaryMochiId === mochiId &&
+        getMochiById(parsedResult.primaryMochiId) &&
+        getMochiById(parsedResult.secondaryMochiId)
       ) {
-        router.replace("/quiz");
-        return;
+        result = parsedResult;
       }
-
-      setResult(parsedResult);
-    } catch (error) {
-      console.error("Не удалось загрузить результат теста:", error);
-      router.replace("/quiz");
-    } finally {
-      setIsLoading(false);
+    } catch {
+      // Некорректные данные будут обработаны перенаправлением ниже.
     }
-  }, [mochiId, router]);
+  }
 
-  if (isLoading) {
+  useEffect(() => {
+    if (resultData !== null && !result) {
+      router.replace("/quiz");
+    }
+  }, [resultData, result, router]);
+
+  if (resultData === null) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-background px-4">
         <p className="text-sm font-medium text-plum-soft">
