@@ -43,7 +43,7 @@ export const mochiProfiles: MochiProfile[] = [
   },
   {
     id: "mango",
-    name: "Манговый моти",
+    name: "Манго моти",
     flavor: "Манго",
     archetype: "Солнечный оптимист",
     emoji: "🥭",
