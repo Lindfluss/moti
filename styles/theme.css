@@ -6,6 +6,18 @@
   --color-peach: #F3D9CC;
   --color-plum: #51405E;
   --color-card: #FFFAF7;
+  --color-plum-soft: #806B8C;
+  --color-plum-muted: #75677B;
+  --color-plum-faint: #8D7B96;
+  --color-plum-subtle: #95849A;
+  --color-plum-secondary: #9B89A0;
+  --color-plum-tertiary: #A495A7;
+  --color-lavender-accent: #B99ACF;
+  --color-lavender-border: #CBBBD0;
+  --color-lavender-track: #F0E7EF;
+  --color-cream-text: #80613E;
+  --color-cream-muted: #8B745B;
+  --color-lavender-hover: #F5EDF8;
 }
 
 :root {
