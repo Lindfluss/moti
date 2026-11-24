@@ -11,9 +11,9 @@ export default function Home() {
           <Link
             href="/"
             className="text-xl font-extrabold tracking-tight text-plum"
-            aria-label="Моти — главная"
+            aria-label="Moti Type — главная"
           >
-            mochi<span className="text-lavender-accent">.</span>
+            Moti<span className="text-lavender-accent"> Type.</span>
           </Link>
           <Link
             href="/quiz"
