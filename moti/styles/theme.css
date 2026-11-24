@@ -1,0 +1,13 @@
+:root {
+  --color-mochi-pink: #F9E8EF;
+  --color-lavender: #E9DDF8;
+  --color-matcha: #DCEBD9;
+  --color-cream: #FFF0D5;
+  --color-peach: #F3D9CC;
+  --color-plum: #51405E;
+
+  --background: var(--color-mochi-pink);
+  --foreground: var(--color-plum);
+  --primary: var(--color-plum);
+  --card: #FFFAF7;
+}
