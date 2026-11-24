@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import { getMochiById } from "@/data/mochi";
@@ -49,7 +49,7 @@ function isValidResult(value: unknown): value is QuizResult {
   );
 }
 
-export default function ResultPage() {
+function ResultPageContent() {
   const params = useParams<{ type: string }>();
   const router = useRouter();
   const mochiId = params.type;
@@ -138,5 +138,21 @@ export default function ResultPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function ResultPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="flex min-h-screen items-center justify-center bg-background px-4">
+          <p className="text-sm font-medium text-plum-soft">
+            Собираем твоего моти... 🍡
+          </p>
+        </main>
+      }
+    >
+      <ResultPageContent />
+    </Suspense>
   );
 }
