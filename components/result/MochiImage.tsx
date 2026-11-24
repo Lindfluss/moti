@@ -27,7 +27,10 @@ export function MochiImage({
     <div
       className={`
         relative flex shrink-0 items-center justify-center
-        overflow-hidden rounded-full bg-card/70
+        aspect-square overflow-hidden rounded-[1.75rem]
+        border border-lavender-border/50
+        bg-gradient-to-br from-white/90 via-card to-lavender/35
+        shadow-sm
         ${dimensions}
       `}
     >
@@ -37,7 +40,7 @@ export function MochiImage({
           alt={name}
           fill
           sizes={size === "large" ? "288px" : "112px"}
-          className="object-contain p-3"
+          className="object-contain p-2"
           onError={() => setImageError(true)}
         />
       ) : (
