@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useSyncExternalStore } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { getMochiById } from "@/data/mochi";
 import { ResultCard } from "@/components/result/ResultCard";
@@ -135,7 +136,17 @@ function ResultPageContent() {
   return (
     <main className="min-h-svh bg-background px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-6 sm:px-6 sm:py-12">
       <div className="mx-auto w-full max-w-2xl">
-        <header className="mb-6 text-center sm:mb-8">
+        <header className="mb-6 sm:mb-8">
+          <div className="mb-6 flex justify-center sm:mb-8">
+            <Link
+              href="/"
+              className="text-xl font-extrabold tracking-tight text-plum"
+              aria-label="Moti Type — главная"
+            >
+              Moti<span className="text-lavender-accent"> Type.</span>
+            </Link>
+          </div>
+          <div className="text-center">
           <p className="text-3xl sm:text-4xl" aria-hidden="true">
             🍡
           </p>
@@ -145,6 +156,7 @@ function ResultPageContent() {
           <h1 className="mt-2 text-2xl font-extrabold text-plum sm:text-3xl">
             Вот какой ты моти!
           </h1>
+          </div>
         </header>
 
         <div className="space-y-5 sm:space-y-6">
