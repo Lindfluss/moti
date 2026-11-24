@@ -47,24 +47,24 @@ export function PersonalityStats({
   scores,
 }: PersonalityStatsProps) {
   return (
-    <section className="rounded-3xl bg-card p-6 shadow-sm sm:p-8">
+    <section className="rounded-3xl bg-card p-5 shadow-sm sm:p-8">
       <h2 className="text-xl font-bold text-plum">
         Твоя моти-формула
       </h2>
 
-      <p className="mb-7 mt-2 text-sm text-plum-subtle">
+      <p className="mb-6 mt-2 text-sm leading-6 text-plum-subtle sm:mb-7">
         Вот как распределились твои ответы
       </p>
 
-      <div className="space-y-6">
+      <div className="space-y-7 sm:space-y-6">
         {traitLabels.map((trait) => {
           const value = scores[trait.key];
           const position = ((value + 100) / 200) * 100;
 
           return (
             <div key={trait.key}>
-              <div className="mb-2 flex items-center justify-between gap-3">
-                <span className="text-sm font-semibold text-plum">
+              <div className="mb-2 flex items-start justify-between gap-3">
+                <span className="min-w-0 text-sm font-semibold leading-5 text-plum">
                   {trait.title}
                 </span>
 
@@ -90,7 +90,7 @@ export function PersonalityStats({
                 />
               </div>
 
-              <div className="mt-2 flex justify-between text-[11px] text-plum-tertiary">
+              <div className="mt-2 flex items-start justify-between gap-3 text-[10px] leading-4 text-plum-tertiary sm:text-[11px]">
                 <span>{trait.left}</span>
                 <span>{trait.right}</span>
               </div>
