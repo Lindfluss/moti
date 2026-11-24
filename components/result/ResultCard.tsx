@@ -21,14 +21,14 @@ export function ResultCard({
   result,
 }: ResultCardProps) {
   return (
-    <div className="space-y-6">
-      <section className="overflow-hidden rounded-[2rem] bg-card shadow-sm">
-        <div className="bg-gradient-to-b from-lavender to-mochi-pink px-6 pb-8 pt-10 text-center">
+    <div className="space-y-5 sm:space-y-6">
+      <section className="overflow-hidden rounded-[1.75rem] bg-card shadow-sm sm:rounded-[2rem]">
+        <div className="bg-gradient-to-b from-lavender to-mochi-pink px-4 pb-6 pt-7 text-center sm:px-6 sm:pb-8 sm:pt-10">
           <span className="inline-block rounded-full bg-white/70 px-4 py-2 text-xs font-bold uppercase tracking-widest text-plum-soft">
             Твой результат
           </span>
 
-          <div className="my-7 flex justify-center">
+          <div className="my-5 flex justify-center sm:my-7">
             <MochiImage
               src={mochi.image}
               name={mochi.name}
@@ -48,7 +48,7 @@ export function ResultCard({
             {mochi.archetype}
           </p>
 
-          <div className="mx-auto mt-6 max-w-md rounded-2xl bg-white/65 p-5">
+          <div className="mx-auto mt-5 max-w-md rounded-2xl bg-white/65 p-4 sm:mt-6 sm:p-5">
             <p className="text-base font-semibold italic leading-relaxed text-plum">
               «{mochi.motto}»
             </p>
@@ -59,7 +59,7 @@ export function ResultCard({
           </p>
         </div>
 
-        <div className="space-y-7 p-6 sm:p-8">
+        <div className="space-y-6 p-5 sm:space-y-7 sm:p-8">
           <div>
             <h2 className="mb-3 text-xl font-bold text-plum">
               Кто ты внутри?
@@ -135,7 +135,7 @@ export function ResultCard({
       </section>
 
       {companion && (
-        <section className="rounded-3xl bg-lavender p-6 sm:p-8">
+        <section className="rounded-3xl bg-lavender p-5 sm:p-8">
           <p className="text-center text-xs font-bold uppercase tracking-widest text-plum-soft">
             Твой моти-компаньон
           </p>
@@ -174,7 +174,7 @@ export function ResultCard({
 
         <Link
           href="/quiz?restart=1"
-          className="block w-full rounded-2xl bg-plum px-6 py-4 text-center font-semibold text-white transition hover:bg-plum-soft"
+          className="block min-h-14 w-full rounded-2xl bg-plum px-6 py-4 text-center font-semibold text-white transition hover:bg-plum-soft"
         >
           Пройти тест ещё раз 🍡
         </Link>
