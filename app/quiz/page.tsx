@@ -1,11 +1,5 @@
-import { QuizClient } from "@/components/quiz/QuizClient";
+import { QuizPageClient } from "@/components/quiz/QuizPageClient";
 
-interface QuizPageProps {
-  searchParams: Promise<{ restart?: string }>;
-}
-
-export default async function QuizPage({ searchParams }: QuizPageProps) {
-  const params = await searchParams;
-
-  return <QuizClient key={params.restart ?? "default"} />;
+export default function QuizPage() {
+  return <QuizPageClient />;
 }
