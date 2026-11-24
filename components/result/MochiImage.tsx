@@ -27,7 +27,7 @@ export function MochiImage({
     <div
       className={`
         relative flex shrink-0 items-center justify-center
-        overflow-hidden rounded-full bg-white/70
+        overflow-hidden rounded-full bg-card/70
         ${dimensions}
       `}
     >
