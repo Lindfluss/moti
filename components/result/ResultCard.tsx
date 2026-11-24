@@ -19,9 +19,9 @@ export function ResultCard({
 }: ResultCardProps) {
   return (
     <div className="space-y-6">
-      <section className="overflow-hidden rounded-[2rem] bg-white shadow-sm">
-        <div className="bg-gradient-to-b from-[#E9DDF8] to-[#F9E8EF] px-6 pb-8 pt-10 text-center">
-          <span className="inline-block rounded-full bg-white/70 px-4 py-2 text-xs font-bold uppercase tracking-widest text-[#806B8C]">
+      <section className="overflow-hidden rounded-[2rem] bg-card shadow-sm">
+        <div className="bg-gradient-to-b from-lavender to-mochi-pink px-6 pb-8 pt-10 text-center">
+          <span className="inline-block rounded-full bg-white/70 px-4 py-2 text-xs font-bold uppercase tracking-widest text-plum-soft">
             Твой результат
           </span>
 
@@ -33,42 +33,42 @@ export function ResultCard({
             />
           </div>
 
-          <p className="text-sm font-semibold text-[#806B8C]">
+          <p className="text-sm font-semibold text-plum-soft">
             ТЫ — ЭТО
           </p>
 
-          <h1 className="mt-2 text-3xl font-extrabold text-[#51405E] sm:text-4xl">
+          <h1 className="mt-2 text-3xl font-extrabold text-plum sm:text-4xl">
             {mochi.name}
           </h1>
 
-          <p className="mt-2 text-lg font-semibold text-[#806B8C]">
+          <p className="mt-2 text-lg font-semibold text-plum-soft">
             {mochi.archetype}
           </p>
 
           <div className="mx-auto mt-6 max-w-md rounded-2xl bg-white/65 p-5">
-            <p className="text-base font-semibold italic leading-relaxed text-[#51405E]">
+            <p className="text-base font-semibold italic leading-relaxed text-plum">
               «{mochi.motto}»
             </p>
           </div>
 
-          <p className="mt-5 text-xs text-[#8D7B96]">
+          <p className="mt-5 text-xs text-plum-faint">
             Игровое сходство с профилем моти: {similarity}%
           </p>
         </div>
 
         <div className="space-y-7 p-6 sm:p-8">
           <div>
-            <h2 className="mb-3 text-xl font-bold text-[#51405E]">
+            <h2 className="mb-3 text-xl font-bold text-plum">
               Кто ты внутри?
             </h2>
 
-            <p className="leading-relaxed text-[#75677B]">
+            <p className="leading-relaxed text-plum-muted">
               {mochi.description}
             </p>
           </div>
 
           <div>
-            <h2 className="mb-3 text-lg font-bold text-[#51405E]">
+            <h2 className="mb-3 text-lg font-bold text-plum">
               Твои суперсилы ✨
             </h2>
 
@@ -76,17 +76,17 @@ export function ResultCard({
               {mochi.strengths.map((strength) => (
                 <li
                   key={strength}
-                  className="flex gap-3 text-sm leading-relaxed text-[#75677B]"
+                  className="flex gap-3 text-sm leading-relaxed text-plum-muted"
                 >
-                  <span className="text-[#B99ACF]">✦</span>
+                  <span className="text-lavender-accent">✦</span>
                   {strength}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="rounded-2xl bg-[#FFF0D5]/60 p-5">
-            <h2 className="mb-3 text-lg font-bold text-[#80613E]">
+          <div className="rounded-2xl bg-cream/60 p-5">
+            <h2 className="mb-3 text-lg font-bold text-cream-text">
               Маленькая ложка правды 🥄
             </h2>
 
@@ -94,7 +94,7 @@ export function ResultCard({
               {mochi.weaknesses.map((weakness) => (
                 <li
                   key={weakness}
-                  className="text-sm leading-relaxed text-[#8B745B]"
+                  className="text-sm leading-relaxed text-cream-muted"
                 >
                   • {weakness}
                 </li>
@@ -103,28 +103,28 @@ export function ResultCard({
           </div>
 
           <div>
-            <h2 className="mb-2 text-lg font-bold text-[#51405E]">
+            <h2 className="mb-2 text-lg font-bold text-plum">
               В дружбе 💗
             </h2>
-            <p className="leading-relaxed text-[#75677B]">
+            <p className="leading-relaxed text-plum-muted">
               {mochi.friendship}
             </p>
           </div>
 
           <div>
-            <h2 className="mb-2 text-lg font-bold text-[#51405E]">
+            <h2 className="mb-2 text-lg font-bold text-plum">
               В отношениях 💌
             </h2>
-            <p className="leading-relaxed text-[#75677B]">
+            <p className="leading-relaxed text-plum-muted">
               {mochi.relationships}
             </p>
           </div>
 
           <div>
-            <h2 className="mb-2 text-lg font-bold text-[#51405E]">
+            <h2 className="mb-2 text-lg font-bold text-plum">
               Твой идеальный день ☁️
             </h2>
-            <p className="leading-relaxed text-[#75677B]">
+            <p className="leading-relaxed text-plum-muted">
               {mochi.idealDay}
             </p>
           </div>
@@ -132,8 +132,8 @@ export function ResultCard({
       </section>
 
       {companion && (
-        <section className="rounded-3xl bg-[#E9DDF8] p-6 sm:p-8">
-          <p className="text-center text-xs font-bold uppercase tracking-widest text-[#806B8C]">
+        <section className="rounded-3xl bg-lavender p-6 sm:p-8">
+          <p className="text-center text-xs font-bold uppercase tracking-widest text-plum-soft">
             Твой моти-компаньон
           </p>
 
@@ -146,15 +146,15 @@ export function ResultCard({
             />
 
             <div>
-              <h2 className="text-xl font-bold text-[#51405E]">
+              <h2 className="text-xl font-bold text-plum">
                 {companion.name}
               </h2>
 
-              <p className="mt-1 text-sm font-semibold text-[#806B8C]">
+              <p className="mt-1 text-sm font-semibold text-plum-soft">
                 {companion.archetype}
               </p>
 
-              <p className="mt-3 text-sm leading-relaxed text-[#75677B]">
+              <p className="mt-3 text-sm leading-relaxed text-plum-muted">
                 {companion.motto}
               </p>
             </div>
@@ -170,7 +170,7 @@ export function ResultCard({
 
         <Link
           href="/quiz"
-          className="block w-full rounded-2xl bg-[#51405E] px-6 py-4 text-center font-semibold text-white transition hover:bg-[#675477]"
+          className="block w-full rounded-2xl bg-plum px-6 py-4 text-center font-semibold text-white transition hover:bg-plum-soft"
         >
           Пройти тест ещё раз 🍡
         </Link>
