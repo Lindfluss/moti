@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 
 import { questions } from "@/data/questions";
@@ -69,7 +70,17 @@ export function QuizClient() {
   return (
     <main className="min-h-svh bg-mochi-pink px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5 text-plum sm:px-6 sm:py-10">
       <div className="mx-auto flex min-h-[calc(100svh_-_2.5rem_-_env(safe-area-inset-bottom))] w-full max-w-2xl flex-col sm:min-h-[80svh]">
-        <header className="mb-7 text-center sm:mb-10">
+        <header className="mb-7 sm:mb-10">
+          <div className="mb-7 flex justify-center sm:mb-9">
+            <Link
+              href="/"
+              className="text-xl font-extrabold tracking-tight text-plum"
+              aria-label="Moti Type — главная"
+            >
+              Moti<span className="text-lavender-accent"> Type.</span>
+            </Link>
+          </div>
+          <div className="text-center">
           <div className="mb-2 text-3xl sm:mb-3 sm:text-4xl" aria-hidden="true">
             🍡
           </div>
@@ -79,6 +90,7 @@ export function QuizClient() {
           <h1 className="mt-2 text-2xl font-bold text-plum sm:mt-3 sm:text-3xl">
             Давай узнаем!
           </h1>
+          </div>
         </header>
 
         <QuizProgress current={currentIndex + 1} total={questions.length} />
