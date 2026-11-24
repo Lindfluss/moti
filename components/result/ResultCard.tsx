@@ -1,7 +1,8 @@
 
 import Link from "next/link";
 
-import type { MochiProfile } from "@/types/mochi";\nimport type { QuizResult } from "@/types/quiz";
+import type { MochiProfile } from "@/types/mochi";
+import type { QuizResult } from "@/types/quiz";
 
 import { MochiImage } from "@/components/result/MochiImage";
 import { ShareButton } from "@/components/result/ShareButton";
@@ -10,12 +11,14 @@ interface ResultCardProps {
   mochi: MochiProfile;
   companion?: MochiProfile;
   similarity: number;
+  result: QuizResult;
 }
 
 export function ResultCard({
   mochi,
   companion,
   similarity,
+  result,
 }: ResultCardProps) {
   return (
     <div className="space-y-6">
@@ -166,6 +169,7 @@ export function ResultCard({
         <ShareButton
           mochiName={mochi.name}
           motto={mochi.motto}
+          result={result}
         />
 
         <Link
