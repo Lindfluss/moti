@@ -42,6 +42,7 @@ export function MochiGallery() {
                 alt={mochi.name}
                 fill
                 sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 240px"
+                quality={55}
                 className="object-cover transition duration-500 group-hover:scale-105"
               />
             </div>
