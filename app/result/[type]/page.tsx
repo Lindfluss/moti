@@ -147,15 +147,15 @@ function ResultPageContent() {
             </Link>
           </div>
           <div className="text-center">
-          <p className="text-3xl sm:text-4xl" aria-hidden="true">
-            🍡
-          </p>
-          <p className="mt-3 text-xs font-bold uppercase tracking-[0.2em] text-plum-soft">
-            Твой результат готов
-          </p>
-          <h1 className="mt-2 text-2xl font-extrabold text-plum sm:text-3xl">
-            Вот какой ты моти!
-          </h1>
+            <p className="text-3xl sm:text-4xl" aria-hidden="true">
+              🍡
+            </p>
+            <p className="mt-3 text-xs font-bold uppercase tracking-[0.2em] text-plum-soft">
+              Твой результат готов
+            </p>
+            <h1 className="mt-2 text-2xl font-extrabold text-plum sm:text-3xl">
+              Вот какой ты моти!
+            </h1>
           </div>
         </header>
 
