@@ -59,14 +59,24 @@ function ResultPageContent() {
 
   useEffect(() => {
     try {
-      const storedResult = sessionStorage.getItem(RESULT_STORAGE_KEY);
+      const sharedData = new URLSearchParams(window.location.search).get("shared");
+      let parsedResult: unknown;
 
-      if (!storedResult) {
-        router.replace("/quiz");
-        return;
+      if (sharedData) {
+        const base64 = sharedData.replace(/-/g, "+").replace(/_/g, "/");
+        const binary = atob(base64);
+        const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+        parsedResult = JSON.parse(new TextDecoder().decode(bytes));
+      } else {
+        const storedResult = sessionStorage.getItem(RESULT_STORAGE_KEY);
+
+        if (!storedResult) {
+          router.replace("/quiz");
+          return;
+        }
+
+        parsedResult = JSON.parse(storedResult);
       }
-
-      const parsedResult: unknown = JSON.parse(storedResult);
 
       if (
         !isValidResult(parsedResult) ||
@@ -124,6 +134,7 @@ function ResultPageContent() {
 
         <div className="space-y-6">
           <ResultCard
+            result={result}
             mochi={mochi}
             companion={companion}
             similarity={primaryMatch.similarity}
