@@ -14,7 +14,9 @@ export function ShareButton({
   result,
 }: ShareButtonProps) {
   async function handleShare() {
-    const encodedResult = btoa(JSON.stringify(result))
+    const bytes = new TextEncoder().encode(JSON.stringify(result));
+    const binary = Array.from(bytes, (byte) => String.fromCharCode(byte)).join("");
+    const encodedResult = btoa(binary)
       .replace(/\\+/g, "-")
       .replace(/\\//g, "_")
       .replace(/=+$/, "");
