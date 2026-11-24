@@ -1,40 +1,73 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { mochiProfiles } from "@/data/mochi";
 import type { MochiProfile } from "@/types/mochi";
 
 export function MochiGallery() {
   const [selectedMochi, setSelectedMochi] = useState<MochiProfile | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!selectedMochi) return;
 
+    const previousOverflow = document.body.style.overflow;
+    previouslyFocusedRef.current =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setSelectedMochi(null);
+      if (event.key === "Escape") {
+        setSelectedMochi(null);
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const dialog = document.querySelector<HTMLElement>('[role="dialog"]');
+      const focusable = dialog?.querySelectorAll<HTMLElement>(
+        'button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      );
+
+      if (!focusable?.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     }
 
     document.addEventListener("keydown", handleKeyDown);
     document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
+      previouslyFocusedRef.current?.focus();
     };
   }, [selectedMochi]);
 
   return (
     <>
-      <div className="mt-10 grid grid-cols-2 gap-4 sm:mt-14 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
+      <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-14 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
         {mochiProfiles.map((mochi) => (
           <button
             key={mochi.id}
             type="button"
             onClick={() => setSelectedMochi(mochi)}
             aria-label={`Подробнее о персонаже: ${mochi.name}`}
-            className="group overflow-hidden rounded-3xl border border-lavender-border/50 bg-card text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-plum/5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum"
+            className="group min-w-0 overflow-hidden rounded-2xl border border-lavender-border/50 bg-card text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-plum/5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum sm:rounded-3xl"
           >
             <div className="relative aspect-square overflow-hidden bg-lavender/30">
               <Image
@@ -46,15 +79,15 @@ export function MochiGallery() {
                 className="object-cover transition duration-500 group-hover:scale-105"
               />
             </div>
-            <div className="p-4 sm:p-5">
+            <div className="p-3 sm:p-5">
               <h3 className="text-sm font-extrabold text-plum sm:text-base">
                 {mochi.name}
               </h3>
               <p className="mt-1 text-xs font-semibold text-lavender-accent sm:text-sm">
                 {mochi.archetype}
               </p>
-              <p className="mt-3 text-xs font-semibold text-plum-muted">
-                Нажми, чтобы узнать больше <span aria-hidden="true">↗</span>
+              <p className="mt-2 text-xs font-semibold text-plum-muted sm:mt-3">
+                Подробнее <span aria-hidden="true">↗</span>
               </p>
             </div>
           </button>
@@ -63,7 +96,7 @@ export function MochiGallery() {
 
       {selectedMochi && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-plum/55 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-end justify-center bg-plum/55 backdrop-blur-sm sm:items-center sm:p-4"
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) setSelectedMochi(null);
           }}
@@ -72,13 +105,14 @@ export function MochiGallery() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="mochi-dialog-title"
-            className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[2rem] bg-card shadow-2xl shadow-plum/20"
+            className="relative max-h-[92dvh] w-full overflow-y-auto overscroll-contain rounded-t-[2rem] bg-card shadow-2xl shadow-plum/20 sm:max-h-[90vh] sm:max-w-lg sm:rounded-[2rem]"
           >
             <button
+              ref={closeButtonRef}
               type="button"
               onClick={() => setSelectedMochi(null)}
               aria-label="Закрыть окно"
-              className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-card/90 text-xl font-semibold text-plum shadow-md transition hover:bg-lavender"
+              className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-card/90 text-2xl font-semibold text-plum shadow-md transition hover:bg-lavender focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum"
             >
               ×
             </button>
@@ -93,7 +127,7 @@ export function MochiGallery() {
               />
             </div>
 
-            <div className="p-6 sm:p-8">
+            <div className="px-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-5 sm:p-8">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-lavender-accent">
                 {selectedMochi.archetype}
               </p>
@@ -107,7 +141,7 @@ export function MochiGallery() {
                 {selectedMochi.description}
               </p>
 
-              <div className="mt-6 rounded-2xl bg-lavender/55 p-5">
+              <div className="mt-6 rounded-2xl bg-lavender/55 p-4 sm:p-5">
                 <p className="text-xs font-bold uppercase tracking-wider text-plum-soft">
                   Девиз
                 </p>
@@ -130,7 +164,7 @@ export function MochiGallery() {
                 </div>
               </div>
 
-              <div className="mt-6 rounded-2xl bg-cream/60 p-5">
+              <div className="mt-6 rounded-2xl bg-cream/60 p-4 sm:p-5">
                 <h3 className="font-bold text-cream-text">
                   Маленькая ложка правды 🥄
                 </h3>
@@ -142,7 +176,7 @@ export function MochiGallery() {
               <button
                 type="button"
                 onClick={() => setSelectedMochi(null)}
-                className="mt-7 w-full rounded-full bg-plum px-6 py-4 font-bold text-white transition hover:bg-plum-soft"
+                className="mt-7 min-h-12 w-full rounded-full bg-plum px-6 py-3 font-bold text-white transition hover:bg-plum-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum"
               >
                 Понятно 💗
               </button>
