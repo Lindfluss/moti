@@ -40,7 +40,7 @@ export function MochiImage({
           alt={name}
           fill
           sizes={size === "large" ? "288px" : "112px"}
-          className="object-contain p-2"
+          className="object-cover"
           onError={() => setImageError(true)}
         />
       ) : (
