@@ -17,8 +17,8 @@ export function ShareButton({
     const bytes = new TextEncoder().encode(JSON.stringify(result));
     const binary = Array.from(bytes, (byte) => String.fromCharCode(byte)).join("");
     const encodedResult = btoa(binary)
-      .replace(/\\+/g, "-")
-      .replace(/\\//g, "_")
+      .replaceAll("+", "-")
+      .replaceAll("/", "_")
       .replace(/=+$/, "");
     const url = `${window.location.origin}/result/${result.primaryMochiId}?shared=${encodedResult}`;
     const text = `Я — ${mochiName}! ${motto}\nА какой ты моти?`;
