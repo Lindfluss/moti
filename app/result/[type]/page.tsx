@@ -118,10 +118,10 @@ function ResultPageContent() {
   if (!mochi || !companion || !primaryMatch) return null;
 
   return (
-    <main className="min-h-screen bg-background px-4 py-8 sm:px-6 sm:py-12">
-      <div className="mx-auto max-w-2xl">
-        <header className="mb-8 text-center">
-          <p className="text-4xl" aria-hidden="true">
+    <main className="min-h-svh bg-background px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-6 sm:px-6 sm:py-12">
+      <div className="mx-auto w-full max-w-2xl">
+        <header className="mb-6 text-center sm:mb-8">
+          <p className="text-3xl sm:text-4xl" aria-hidden="true">
             🍡
           </p>
           <p className="mt-3 text-xs font-bold uppercase tracking-[0.2em] text-plum-soft">
@@ -132,7 +132,7 @@ function ResultPageContent() {
           </h1>
         </header>
 
-        <div className="space-y-6">
+        <div className="space-y-5 sm:space-y-6">
           <ResultCard
             result={result}
             mochi={mochi}
