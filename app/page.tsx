@@ -112,8 +112,10 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="px-5 py-8 text-center text-xs font-medium text-plum-muted">
-        Сделано с нежностью и щепоткой рисовой муки 🍡
+      <footer className="space-y-2 px-5 py-8 text-center text-xs font-medium text-plum-muted">
+        <p>Сделано с нежностью и щепоткой рисовой муки 🍡</p>
+        <p>© 2026 Moti Type. Все права защищены.</p>
+        <p>Сайт создан <span className="font-semibold text-plum">Lindfluss</span>.</p>
       </footer>
     </main>
   );
