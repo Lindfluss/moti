@@ -41,7 +41,7 @@ export function ShareButton({
     <button
       type="button"
       onClick={handleShare}
-      className="w-full rounded-2xl border-2 border-[#51405E] bg-transparent px-6 py-4 font-semibold text-[#51405E] transition hover:bg-[#F5EDF8]"
+      className="w-full rounded-2xl border-2 border-plum bg-transparent px-6 py-4 font-semibold text-plum transition hover:bg-lavender-hover"
     >
       Поделиться результатом ↗
     </button>
