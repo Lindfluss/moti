@@ -1,7 +1,7 @@
 
 import Link from "next/link";
 
-import type { MochiProfile } from "@/types/mochi";
+import type { MochiProfile } from "@/types/mochi";\nimport type { QuizResult } from "@/types/quiz";
 
 import { MochiImage } from "@/components/result/MochiImage";
 import { ShareButton } from "@/components/result/ShareButton";
@@ -169,7 +169,7 @@ export function ResultCard({
         />
 
         <Link
-          href="/quiz"
+          href="/quiz?restart=1"
           className="block w-full rounded-2xl bg-plum px-6 py-4 text-center font-semibold text-white transition hover:bg-plum-soft"
         >
           Пройти тест ещё раз 🍡
