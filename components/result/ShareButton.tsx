@@ -50,7 +50,7 @@ export function ShareButton({
     <button
       type="button"
       onClick={handleShare}
-      className="w-full rounded-2xl border-2 border-plum bg-transparent px-6 py-4 font-semibold text-plum transition hover:bg-lavender-hover"
+      className="min-h-14 w-full rounded-2xl border-2 border-plum bg-transparent px-6 py-4 font-semibold text-plum transition hover:bg-lavender-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum"
     >
       Поделиться результатом ↗
     </button>
