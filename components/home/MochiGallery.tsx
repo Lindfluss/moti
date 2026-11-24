@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 
 import { mochiProfiles } from "@/data/mochi";
 import type { MochiProfile } from "@/types/mochi";
@@ -94,96 +95,113 @@ export function MochiGallery() {
         ))}
       </div>
 
-      {selectedMochi && (
-        <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-plum/55 backdrop-blur-sm sm:items-center sm:p-4"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) setSelectedMochi(null);
-          }}
-        >
-          <section
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="mochi-dialog-title"
-            className="relative max-h-[92dvh] w-full overflow-y-auto overscroll-contain rounded-t-[2rem] bg-card shadow-2xl shadow-plum/20 sm:max-h-[90vh] sm:max-w-lg sm:rounded-[2rem]"
+      <AnimatePresence>
+        {selectedMochi && (
+          <motion.div
+            key="mochi-dialog-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="fixed inset-0 z-50 flex items-end justify-center bg-plum/55 backdrop-blur-sm sm:items-center sm:p-4"
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) setSelectedMochi(null);
+            }}
           >
-            <button
-              ref={closeButtonRef}
-              type="button"
-              onClick={() => setSelectedMochi(null)}
-              aria-label="Закрыть окно"
-              className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-card/90 text-2xl font-semibold text-plum shadow-md transition hover:bg-lavender focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum"
+            <motion.section
+              key={selectedMochi.id}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="mochi-dialog-title"
+              initial={{ y: "100%", opacity: 0.85 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: "100%", opacity: 0.85 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+                mass: 0.85,
+              }}
+              className="relative max-h-[92dvh] w-full overflow-y-auto overscroll-contain rounded-t-[2rem] bg-card shadow-2xl shadow-plum/20 sm:max-h-[90vh] sm:max-w-lg sm:rounded-[2rem]"
             >
-              ×
-            </button>
-
-            <div className="relative aspect-[16/10] overflow-hidden bg-lavender/30">
-              <Image
-                src={selectedMochi.image}
-                alt={selectedMochi.name}
-                fill
-                sizes="(max-width: 640px) 100vw, 512px"
-                className="object-cover"
-              />
-            </div>
-
-            <div className="px-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-5 sm:p-8">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-lavender-accent">
-                {selectedMochi.archetype}
-              </p>
-              <h2
-                id="mochi-dialog-title"
-                className="mt-2 text-2xl font-black text-plum sm:text-3xl"
-              >
-                {selectedMochi.name}
-              </h2>
-              <p className="mt-4 leading-7 text-plum-muted">
-                {selectedMochi.description}
-              </p>
-
-              <div className="mt-6 rounded-2xl bg-lavender/55 p-4 sm:p-5">
-                <p className="text-xs font-bold uppercase tracking-wider text-plum-soft">
-                  Девиз
-                </p>
-                <p className="mt-2 font-semibold italic leading-relaxed text-plum">
-                  «{selectedMochi.motto}»
-                </p>
-              </div>
-
-              <div className="mt-6">
-                <h3 className="font-bold text-plum">Сильные стороны ✨</h3>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {selectedMochi.strengths.map((strength) => (
-                    <span
-                      key={strength}
-                      className="rounded-full bg-matcha/70 px-3 py-2 text-xs font-semibold text-plum"
-                    >
-                      {strength}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-6 rounded-2xl bg-cream/60 p-4 sm:p-5">
-                <h3 className="font-bold text-cream-text">
-                  Маленькая ложка правды 🥄
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-cream-muted">
-                  {selectedMochi.weaknesses.join(" ")}
-                </p>
-              </div>
-
               <button
+                ref={closeButtonRef}
                 type="button"
                 onClick={() => setSelectedMochi(null)}
-                className="mt-7 min-h-12 w-full rounded-full bg-plum px-6 py-3 font-bold text-white transition hover:bg-plum-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum"
+                aria-label="Закрыть окно"
+                className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-card/90 text-2xl font-semibold text-plum shadow-md transition hover:bg-lavender focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum"
               >
-                Понятно 💗
+                ×
               </button>
-            </div>
-          </section>
-        </div>
-      )}
+
+              <div className="relative aspect-[16/10] overflow-hidden bg-lavender/30">
+                <Image
+                  src={selectedMochi.image}
+                  alt={selectedMochi.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 512px"
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="px-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-5 sm:p-8">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-lavender-accent">
+                  {selectedMochi.archetype}
+                </p>
+                <h2
+                  id="mochi-dialog-title"
+                  className="mt-2 text-2xl font-black text-plum sm:text-3xl"
+                >
+                  {selectedMochi.name}
+                </h2>
+                <p className="mt-4 leading-7 text-plum-muted">
+                  {selectedMochi.description}
+                </p>
+
+                <div className="mt-6 rounded-2xl bg-lavender/55 p-4 sm:p-5">
+                  <p className="text-xs font-bold uppercase tracking-wider text-plum-soft">
+                    Девиз
+                  </p>
+                  <p className="mt-2 font-semibold italic leading-relaxed text-plum">
+                    «{selectedMochi.motto}»
+                  </p>
+                </div>
+
+                <div className="mt-6">
+                  <h3 className="font-bold text-plum">Сильные стороны ✨</h3>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {selectedMochi.strengths.map((strength) => (
+                      <span
+                        key={strength}
+                        className="rounded-full bg-matcha/70 px-3 py-2 text-xs font-semibold text-plum"
+                      >
+                        {strength}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-6 rounded-2xl bg-cream/60 p-4 sm:p-5">
+                  <h3 className="font-bold text-cream-text">
+                    Маленькая ложка правды 🥄
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-cream-muted">
+                    {selectedMochi.weaknesses.join(" ")}
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setSelectedMochi(null)}
+                  className="mt-7 min-h-12 w-full rounded-full bg-plum px-6 py-3 font-bold text-white transition hover:bg-plum-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum"
+                >
+                  Понятно 💗
+                </button>
+              </div>
+            </motion.section>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
