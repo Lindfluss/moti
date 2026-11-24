@@ -47,12 +47,12 @@ export function PersonalityStats({
   scores,
 }: PersonalityStatsProps) {
   return (
-    <section className="rounded-3xl bg-white p-6 shadow-sm sm:p-8">
-      <h2 className="text-xl font-bold text-[#51405E]">
+    <section className="rounded-3xl bg-card p-6 shadow-sm sm:p-8">
+      <h2 className="text-xl font-bold text-plum">
         Твоя моти-формула
       </h2>
 
-      <p className="mb-7 mt-2 text-sm text-[#95849A]">
+      <p className="mb-7 mt-2 text-sm text-plum-subtle">
         Вот как распределились твои ответы
       </p>
 
@@ -64,20 +64,20 @@ export function PersonalityStats({
           return (
             <div key={trait.key}>
               <div className="mb-2 flex items-center justify-between gap-3">
-                <span className="text-sm font-semibold text-[#51405E]">
+                <span className="text-sm font-semibold text-plum">
                   {trait.title}
                 </span>
 
-                <span className="text-xs font-medium text-[#9B89A0]">
+                <span className="text-xs font-medium text-plum-secondary">
                   {value > 0 ? `+${Math.round(value)}` : Math.round(value)}
                 </span>
               </div>
 
-              <div className="relative h-3 rounded-full bg-[#F0E7EF]">
-                <div className="absolute left-1/2 top-0 h-full w-px bg-[#CBBBD0]" />
+              <div className="relative h-3 rounded-full bg-lavender-track">
+                <div className="absolute left-1/2 top-0 h-full w-px bg-lavender-border" />
 
                 <div
-                  className="absolute top-0 h-full rounded-full bg-[#B99ACF]"
+                  className="absolute top-0 h-full rounded-full bg-lavender-accent"
                   style={{
                     left: `${Math.min(50, position)}%`,
                     width: `${Math.abs(position - 50)}%`,
